@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.dictionary;
 
 import java.util.List;
 
@@ -11,4 +11,7 @@ public class WordleDictionary {
 
     private List<String> words;
 
+    public WordleDictionary(List<String> words) {
+        this.words = words;
+    }
 }
