@@ -3,6 +3,7 @@ package ru.yandex.practicum.dictionary;
 import ru.yandex.practicum.logger.Logger;
 
 import java.util.List;
+import java.util.Random;
 
 /*
 этот класс содержит в себе список слов List<String>
@@ -17,5 +18,13 @@ public class WordleDictionary {
     public WordleDictionary(List<String> words, Logger logger) {
         this.words = words;
         this.logger = logger;
+    }
+
+    public String selectWordForGame() {
+        Random random = new Random();
+
+        int randomIndex = random.nextInt(words.size());
+
+        return words.get(randomIndex);
     }
 }
