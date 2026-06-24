@@ -1,6 +1,8 @@
 package ru.yandex.practicum;
 
 import ru.yandex.practicum.dictionary.WordleDictionaryLoader;
+import ru.yandex.practicum.logger.Logger;
+import ru.yandex.practicum.logger.LoggerImpl;
 
 /*
 в главном классе нам нужно:
@@ -14,7 +16,9 @@ import ru.yandex.practicum.dictionary.WordleDictionaryLoader;
 public class Wordle {
 
     public static void main(String[] args) {
-        WordleDictionaryLoader loader = new WordleDictionaryLoader();
+        Logger logger = new LoggerImpl();
+
+        WordleDictionaryLoader loader = new WordleDictionaryLoader(logger);
         loader.loadWordleDictionaryFromFile("words_ru.txt");
     }
 

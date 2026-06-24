@@ -1,10 +1,11 @@
 package ru.yandex.practicum.dictionary;
 
+import ru.yandex.practicum.logger.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -15,9 +16,15 @@ import java.util.List;
 public class WordleDictionaryLoader {
     private final int GAME_WORD_LENGTH = 5;
 
+    private Logger logger;
+
+    public WordleDictionaryLoader(Logger logger) {
+        this.logger = logger;
+    }
+
     public WordleDictionary loadWordleDictionaryFromFile(String fileName) {
         List<String> gameWords = loadWordsFromFile(fileName);
-        return new WordleDictionary(gameWords);
+        return new WordleDictionary(gameWords, logger);
     }
 
     private List<String> loadWordsFromFile(String fileName) {
@@ -29,10 +36,10 @@ public class WordleDictionaryLoader {
                     .filter(word -> word.length() == GAME_WORD_LENGTH)
                     .toList();
         } catch (FileNotFoundException e) {
-            System.out.println("kurwa");
+            logger.logMessage("Specified dictionary file not found: " + e.getMessage());
             return List.of();
         } catch (IOException e) {
-            System.out.println("kurwo");
+            logger.logMessage("File reading error: " + e.getMessage());
             return List.of();
         }
     }

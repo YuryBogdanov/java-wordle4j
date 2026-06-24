@@ -1,5 +1,7 @@
 package ru.yandex.practicum.dictionary;
 
+import ru.yandex.practicum.logger.Logger;
+
 import java.util.List;
 
 /*
@@ -10,8 +12,10 @@ import java.util.List;
 public class WordleDictionary {
 
     private List<String> words;
+    private Logger logger;
 
-    public WordleDictionary(List<String> words) {
+    public WordleDictionary(List<String> words, Logger logger) {
         this.words = words;
+        this.logger = logger;
     }
 }
