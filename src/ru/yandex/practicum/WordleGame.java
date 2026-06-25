@@ -22,4 +22,8 @@ public class WordleGame {
 
     private WordleDictionary dictionary;
 
+
+    public WordleGame(WordleDictionary dictionary) {
+        this.dictionary = dictionary;
+    }
 }

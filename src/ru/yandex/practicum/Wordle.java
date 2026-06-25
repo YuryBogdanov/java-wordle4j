@@ -1,5 +1,6 @@
 package ru.yandex.practicum;
 
+import ru.yandex.practicum.dictionary.WordleDictionary;
 import ru.yandex.practicum.dictionary.WordleDictionaryLoader;
 import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.logger.LoggerImpl;
@@ -19,7 +20,10 @@ public class Wordle {
         Logger logger = new LoggerImpl();
 
         WordleDictionaryLoader loader = new WordleDictionaryLoader(logger);
-        loader.loadWordleDictionaryFromFile("words_ru.txt");
+        WordleDictionary dictionary = loader.loadWordleDictionaryFromFile("words_ru.txt");
+
+        WordleGame game = new WordleGame(dictionary);
+
     }
 
 }
