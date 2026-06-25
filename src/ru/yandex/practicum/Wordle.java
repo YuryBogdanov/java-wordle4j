@@ -20,14 +20,15 @@ public class Wordle {
 
     public static void main(String[] args) {
         Logger logger = new LoggerImpl();
+        int gameWordLength = 5; // заготовка на случай, если вдруг захотим усложнить жизнь игроку и взять слова длиннее
 
-        WordleDictionaryLoader loader = new WordleDictionaryLoader(logger);
+        WordleDictionaryLoader loader = new WordleDictionaryLoader(logger, gameWordLength);
         WordleDictionary dictionary = loader.loadWordleDictionaryFromFile("words_ru.txt");
 
         GameInteface gameInteface = new GameInterfaceImpl();
 
-        WordleGame game = new WordleGame(dictionary, gameInteface);
-
+        WordleGame game = new WordleGame(gameWordLength, dictionary, gameInteface);
+        game.beginGame();
     }
 
 }

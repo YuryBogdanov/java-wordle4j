@@ -14,12 +14,12 @@ import java.util.List;
     на выходе должен быть класс WordleDictionary
  */
 public class WordleDictionaryLoader {
-    private final int GAME_WORD_LENGTH = 5;
-
     private Logger logger;
+    private int gameWordLength;
 
-    public WordleDictionaryLoader(Logger logger) {
+    public WordleDictionaryLoader(Logger logger, int gameWordLength) {
         this.logger = logger;
+        this.gameWordLength = gameWordLength;
     }
 
     public WordleDictionary loadWordleDictionaryFromFile(String fileName) {
@@ -33,7 +33,7 @@ public class WordleDictionaryLoader {
                     .lines()
                     .toList()
                     .stream()
-                    .filter(word -> word.length() == GAME_WORD_LENGTH)
+                    .filter(word -> word.length() == gameWordLength)
                     .toList();
         } catch (FileNotFoundException e) {
             logger.logMessage("Specified dictionary file not found: " + e.getMessage());

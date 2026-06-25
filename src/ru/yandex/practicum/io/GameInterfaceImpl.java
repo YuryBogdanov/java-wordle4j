@@ -14,6 +14,6 @@ public class GameInterfaceImpl implements GameInteface {
 
     @Override
     public void postMessage(String message) {
-
+        System.out.println(message);
     }
 }

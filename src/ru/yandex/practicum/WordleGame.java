@@ -19,18 +19,30 @@ public class WordleGame {
 
     private String answer;
 
+    private int maxStepsCount;
     private int steps;
 
     private WordleDictionary dictionary;
     private GameInteface userInterface;
 
+    private String selectedWord;
 
-    public WordleGame(WordleDictionary dictionary, GameInteface userInterface) {
+    public WordleGame(int gameLength, WordleDictionary dictionary, GameInteface userInterface) {
+        this.maxStepsCount = gameLength;
         this.dictionary = dictionary;
         this.userInterface = userInterface;
     }
 
     public void beginGame() {
+        selectGameWord();
 
+    }
+
+    private void selectGameWord() {
+        userInterface.postMessage("Выбираем слово для игры...");
+
+        selectedWord = dictionary.selectWordForGame();
+
+        userInterface.postMessage("Слово выбрано! Попробуйте угадать.");
     }
 }
