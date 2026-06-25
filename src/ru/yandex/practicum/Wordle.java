@@ -2,6 +2,8 @@ package ru.yandex.practicum;
 
 import ru.yandex.practicum.dictionary.WordleDictionary;
 import ru.yandex.practicum.dictionary.WordleDictionaryLoader;
+import ru.yandex.practicum.io.GameInteface;
+import ru.yandex.practicum.io.GameInterfaceImpl;
 import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.logger.LoggerImpl;
 
@@ -22,7 +24,9 @@ public class Wordle {
         WordleDictionaryLoader loader = new WordleDictionaryLoader(logger);
         WordleDictionary dictionary = loader.loadWordleDictionaryFromFile("words_ru.txt");
 
-        WordleGame game = new WordleGame(dictionary);
+        GameInteface gameInteface = new GameInterfaceImpl();
+
+        WordleGame game = new WordleGame(dictionary, gameInteface);
 
     }
 

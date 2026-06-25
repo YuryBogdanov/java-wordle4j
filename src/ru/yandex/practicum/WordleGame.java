@@ -1,6 +1,7 @@
 package ru.yandex.practicum;
 
 import ru.yandex.practicum.dictionary.WordleDictionary;
+import ru.yandex.practicum.io.GameInteface;
 
 /*
 в этом классе хранится словарь и состояние игры
@@ -21,9 +22,15 @@ public class WordleGame {
     private int steps;
 
     private WordleDictionary dictionary;
+    private GameInteface userInterface;
 
 
-    public WordleGame(WordleDictionary dictionary) {
+    public WordleGame(WordleDictionary dictionary, GameInteface userInterface) {
         this.dictionary = dictionary;
+        this.userInterface = userInterface;
+    }
+
+    public void beginGame() {
+
     }
 }
