@@ -1,6 +1,8 @@
 package ru.yandex.practicum;
 
+import ru.yandex.practicum.dictionary.WordComparisonResult;
 import ru.yandex.practicum.dictionary.WordleDictionary;
+import ru.yandex.practicum.dictionary.errors.IncorrectInputWordLength;
 import ru.yandex.practicum.io.GameInteface;
 
 /*
@@ -35,20 +37,34 @@ public class WordleGame {
 
     public void beginGame() {
         selectGameWord();
-
+        runGameCycle();
     }
 
     private void selectGameWord() {
-        userInterface.postMessage("Выбираем слово для игры...");
+        userInterface.postMessage("Выбираем слово из " + maxStepsCount + " букв для игры...");
         selectedWord = dictionary.selectWordForGame();
-        userInterface.postMessage("Слово выбрано! Попробуйте угадать.");
+        userInterface.postMessage("Слово выбрано! Попробуйте угадать. " + selectedWord);
     }
 
     private void runGameCycle() {
         currentStep = 0;
         while (currentStep < maxStepsCount) {
-            String guess = userInterface.askForInput("Попытка " + (currentStep + 1) + "из " + maxStepsCount);
+            String guess = userInterface.askForInput("Попытка " + (currentStep + 1) + " из " + maxStepsCount);
 
+            try {
+                WordComparisonResult comparisonResult = dictionary.compareWords(guess, selectedWord);
+                userInterface.postMessage(comparisonResult.getResultMask());
+
+                if (comparisonResult.isCorrect()) {
+                    userInterface.postMessage("Вы угадали! Поздравляем!");
+                    return;
+                }
+            } catch (IncorrectInputWordLength e) {
+                userInterface.postMessage("Неправильная длина слова. Это стоило вам одной попытки.");
+            }
+
+            currentStep += 1;
         }
+        userInterface.postMessage("Вы не угадали слово. Повезёт в другой раз!");
     }
 }
