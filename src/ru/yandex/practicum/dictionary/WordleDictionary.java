@@ -1,6 +1,7 @@
 package ru.yandex.practicum.dictionary;
 
 import ru.yandex.practicum.dictionary.errors.EmptyInputWord;
+import ru.yandex.practicum.dictionary.errors.GibberishInput;
 import ru.yandex.practicum.dictionary.errors.IncorrectInputWordLength;
 import ru.yandex.practicum.logger.Logger;
 
@@ -32,10 +33,13 @@ public class WordleDictionary {
 
     public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLength, EmptyInputWord {
         if (guessWord.isBlank()) {
-            throw new EmptyInputWord("Введены пробелы");
+            throw new EmptyInputWord("Введены пробелы. Попытка не списана, введите слово.");
         }
         if (guessWord.length() != secretWord.length()) {
             throw new IncorrectInputWordLength("Введено слово неподходящей длины");
+        }
+        if (!words.contains(guessWord)) {
+            throw new GibberishInput("Введите существующее слово");
         }
 
         boolean isGuessCorrect = true;

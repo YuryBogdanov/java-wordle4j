@@ -3,6 +3,7 @@ package ru.yandex.practicum;
 import ru.yandex.practicum.dictionary.WordComparisonResult;
 import ru.yandex.practicum.dictionary.WordleDictionary;
 import ru.yandex.practicum.dictionary.errors.EmptyInputWord;
+import ru.yandex.practicum.dictionary.errors.GibberishInput;
 import ru.yandex.practicum.dictionary.errors.IncorrectInputWordLength;
 import ru.yandex.practicum.io.GameInteface;
 
@@ -60,10 +61,10 @@ public class WordleGame {
                     userInterface.postMessage("Вы угадали! Поздравляем!");
                     return;
                 }
-            } catch (IncorrectInputWordLength e) {
-                userInterface.postMessage("Неправильная длина слова. Это стоило вам одной попытки.");
+            } catch (IncorrectInputWordLength | GibberishInput e) {
+                userInterface.postMessage(e.getMessage());
             } catch (EmptyInputWord e) {
-                userInterface.postMessage("Вы ввели пустую строку. Попробуйте еще раз, попытка не была списана.");
+                userInterface.postMessage(e.getMessage());
                 continue;
             }
 
