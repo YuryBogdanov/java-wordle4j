@@ -1,5 +1,6 @@
 package ru.yandex.practicum.dictionary;
 
+import ru.yandex.practicum.dictionary.errors.IncorrectInputWordLength;
 import ru.yandex.practicum.logger.Logger;
 
 import java.util.List;
@@ -26,5 +27,28 @@ public class WordleDictionary {
         int randomIndex = random.nextInt(words.size());
 
         return words.get(randomIndex);
+    }
+
+    public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLength {
+        if (guessWord.length() != secretWord.length()) {
+            throw new IncorrectInputWordLength("Введено слово неподходящей длины");
+        }
+
+        boolean isGuessCorrect = true;
+        StringBuilder maskBuilder = new StringBuilder();
+
+        for (int i = 0; i < guessWord.length(); i++) {
+            char currentGuessWordChar = guessWord.charAt(i);
+
+            if (currentGuessWordChar == secretWord.charAt(i)) {
+                maskBuilder.append("+");
+            } else {
+                String symbolToAppend = secretWord.contains(String.valueOf(currentGuessWordChar)) ? "^" : "-";
+                maskBuilder.append(symbolToAppend);
+                isGuessCorrect = false;
+            }
+        }
+
+        return new WordComparisonResult(isGuessCorrect, maskBuilder.toString());
     }
 }

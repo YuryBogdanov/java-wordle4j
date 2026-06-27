@@ -20,7 +20,7 @@ public class WordleGame {
     private String answer;
 
     private int maxStepsCount;
-    private int steps;
+    private int currentStep;
 
     private WordleDictionary dictionary;
     private GameInteface userInterface;
@@ -40,9 +40,15 @@ public class WordleGame {
 
     private void selectGameWord() {
         userInterface.postMessage("Выбираем слово для игры...");
-
         selectedWord = dictionary.selectWordForGame();
-
         userInterface.postMessage("Слово выбрано! Попробуйте угадать.");
+    }
+
+    private void runGameCycle() {
+        currentStep = 0;
+        while (currentStep < maxStepsCount) {
+            String guess = userInterface.askForInput("Попытка " + (currentStep + 1) + "из " + maxStepsCount);
+
+        }
     }
 }
