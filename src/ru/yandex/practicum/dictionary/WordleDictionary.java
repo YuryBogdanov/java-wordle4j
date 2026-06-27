@@ -1,5 +1,6 @@
 package ru.yandex.practicum.dictionary;
 
+import ru.yandex.practicum.dictionary.errors.EmptyInputWord;
 import ru.yandex.practicum.dictionary.errors.IncorrectInputWordLength;
 import ru.yandex.practicum.logger.Logger;
 
@@ -29,7 +30,10 @@ public class WordleDictionary {
         return words.get(randomIndex);
     }
 
-    public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLength {
+    public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLength, EmptyInputWord {
+        if (guessWord.isBlank()) {
+            throw new EmptyInputWord("Введены пробелы");
+        }
         if (guessWord.length() != secretWord.length()) {
             throw new IncorrectInputWordLength("Введено слово неподходящей длины");
         }
