@@ -24,6 +24,7 @@ public class WordleDictionaryLoader {
 
     public WordleDictionary loadWordleDictionaryFromFile(String fileName) {
         List<String> gameWords = loadWordsFromFile(fileName);
+        logger.logMessage("Dictionary has been loaded.");
         return new WordleDictionary(gameWords, logger);
     }
 

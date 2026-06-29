@@ -20,6 +20,12 @@ public class Wordle {
 
     public static void main(String[] args) {
         Logger logger = new LoggerImpl();
+        try {
+            logger.setupLogger();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         int gameWordLength = 5; // заготовка на случай, если вдруг захотим усложнить жизнь игроку и взять слова длиннее
 
         WordleDictionaryLoader loader = new WordleDictionaryLoader(logger, gameWordLength);
@@ -29,6 +35,12 @@ public class Wordle {
 
         WordleGame game = new WordleGame(gameWordLength, dictionary, gameInteface);
         game.beginGame();
+
+        try {
+            logger.closeLogger();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
