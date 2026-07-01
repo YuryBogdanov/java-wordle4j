@@ -2,23 +2,9 @@ package ru.yandex.practicum;
 
 import ru.yandex.practicum.dictionary.WordComparisonResult;
 import ru.yandex.practicum.dictionary.WordleDictionary;
-import ru.yandex.practicum.dictionary.errors.EmptyInputWord;
-import ru.yandex.practicum.dictionary.errors.GibberishInput;
-import ru.yandex.practicum.dictionary.errors.IncorrectInputWordLength;
+import ru.yandex.practicum.dictionary.errors.*;
 import ru.yandex.practicum.io.GameInteface;
 
-/*
-в этом классе хранится словарь и состояние игры
-    текущий шаг
-    всё что пользователь вводил
-    правильный ответ
-
-в этом классе нужны методы, которые
-    проанализируют совпадение слова с ответом
-    предложат слово-подсказку с учётом всего, что вводил пользователь ранее
-
-не забудьте про специальные типы исключений для игровых и неигровых ошибок
- */
 public class WordleGame {
 
     private String answer;
@@ -37,15 +23,24 @@ public class WordleGame {
         this.userInterface = userInterface;
     }
 
-    public void beginGame() {
-        selectGameWord();
-        runGameCycle();
+    public void beginGame() throws Exception {
+        try {
+            selectGameWord();
+            runGameCycle();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void selectGameWord() {
+    private void selectGameWord() throws Exception {
         userInterface.postMessage("Выбираем слово из " + maxStepsCount + " букв для игры...");
-        selectedWord = dictionary.selectWordForGame();
-        userInterface.postMessage("Слово выбрано! Попробуйте угадать. " + selectedWord);
+
+        try {
+            selectedWord = dictionary.selectWordForGame();
+            userInterface.postMessage("Слово выбрано! Попробуйте угадать. " + selectedWord);
+        } catch (EmptyDicitonaryException e) {
+            throw e;
+        }
     }
 
     private void runGameCycle() {
@@ -61,9 +56,9 @@ public class WordleGame {
                     userInterface.postMessage("Вы угадали! Поздравляем!");
                     return;
                 }
-            } catch (IncorrectInputWordLength | GibberishInput e) {
+            } catch (IncorrectInputWordLengthException | GibberishInputException | NotCyrillicInputException e) {
                 userInterface.postMessage(e.getMessage());
-            } catch (EmptyInputWord e) {
+            } catch (EmptyInputWordException e) {
                 userInterface.postMessage(e.getMessage());
                 continue;
             }

@@ -7,15 +7,6 @@ import ru.yandex.practicum.io.GameInterfaceImpl;
 import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.logger.LoggerImpl;
 
-/*
-в главном классе нам нужно:
-    создать лог-файл (он должен передаваться во все классы)
-    создать загрузчик словарей WordleDictionaryLoader
-    загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader
-    затем создать игру WordleGame и передать ей словарь
-    вызвать игровой метод в котором в цикле опрашивать пользователя и передавать информацию в игру
-    вывести состояние игры и конечный результат
- */
 public class Wordle {
 
     public static void main(String[] args) {
@@ -34,7 +25,11 @@ public class Wordle {
         GameInteface gameInteface = new GameInterfaceImpl();
 
         WordleGame game = new WordleGame(gameWordLength, dictionary, gameInteface);
-        game.beginGame();
+        try {
+            game.beginGame();
+        } catch (Exception e) {
+            logger.logMessage("Aborting game.");
+        }
 
         try {
             logger.closeLogger();

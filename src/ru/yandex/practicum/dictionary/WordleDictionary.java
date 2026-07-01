@@ -1,18 +1,11 @@
 package ru.yandex.practicum.dictionary;
 
-import ru.yandex.practicum.dictionary.errors.EmptyInputWord;
-import ru.yandex.practicum.dictionary.errors.GibberishInput;
-import ru.yandex.practicum.dictionary.errors.IncorrectInputWordLength;
+import ru.yandex.practicum.dictionary.errors.*;
 import ru.yandex.practicum.logger.Logger;
 
 import java.util.List;
 import java.util.Random;
 
-/*
-этот класс содержит в себе список слов List<String>
-    его методы похожи на методы списка, но учитывают особенности игры
-    также этот класс может содержать рутинные функции по сравнению слов, букв и т.д.
- */
 public class WordleDictionary {
 
     private List<String> words;
@@ -23,7 +16,10 @@ public class WordleDictionary {
         this.logger = logger;
     }
 
-    public String selectWordForGame() {
+    public String selectWordForGame() throws EmptyDicitonaryException {
+        if (words.isEmpty()) {
+            throw new EmptyDicitonaryException("Dictionary is empty.");
+        }
         Random random = new Random();
 
         int randomIndex = random.nextInt(words.size());
@@ -31,15 +27,18 @@ public class WordleDictionary {
         return words.get(randomIndex);
     }
 
-    public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLength, EmptyInputWord {
+    public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLengthException, EmptyInputWordException {
         if (guessWord.isBlank()) {
-            throw new EmptyInputWord("Введены пробелы. Попытка не списана, введите слово.");
+            throw new EmptyInputWordException("Введены пробелы. Попытка не списана, введите слово.");
         }
         if (guessWord.length() != secretWord.length()) {
-            throw new IncorrectInputWordLength("Введено слово неподходящей длины");
+            throw new IncorrectInputWordLengthException("Введено слово неподходящей длины");
+        }
+        if (!guessWord.matches("\\p{IsCyrillic}+")) {
+            throw new NotCyrillicInputException("Допускаются только кириллические символы");
         }
         if (!words.contains(guessWord)) {
-            throw new GibberishInput("Введите существующее слово");
+            throw new GibberishInputException("Введите существующее слово");
         }
 
         boolean isGuessCorrect = true;

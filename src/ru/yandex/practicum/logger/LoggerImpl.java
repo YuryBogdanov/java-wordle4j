@@ -25,7 +25,7 @@ public class LoggerImpl implements Logger{
             LocalDateTime currentTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedDateTime = currentTime.format(formatter);
-            writer.write("[" + formattedDateTime + "] " + message);
+            writer.write("[" + formattedDateTime + "] " + message + "\n");
             writer.flush();
         } catch (IOException e) {
             System.out.println("Ошибка записи в лог!");
