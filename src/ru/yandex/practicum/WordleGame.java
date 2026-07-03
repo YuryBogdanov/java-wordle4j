@@ -43,7 +43,7 @@ public class WordleGame {
         try {
             selectedWord = dictionary.selectWordForGame();
             userInterface.postMessage("Слово выбрано! Попробуйте угадать. " + selectedWord);
-        } catch (EmptyDicitonaryException e) {
+        } catch (EmptyDictionaryException e) {
             throw e;
         }
     }

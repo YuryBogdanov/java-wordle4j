@@ -1,7 +1,6 @@
 package ru.yandex.practicum.dictionary;
 
 import ru.yandex.practicum.dictionary.errors.*;
-import ru.yandex.practicum.logger.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +15,9 @@ public class WordleDictionary {
         this.words = words;
     }
 
-    public String selectWordForGame() throws EmptyDicitonaryException {
+    public String selectWordForGame() throws EmptyDictionaryException {
         if (words.isEmpty()) {
-            throw new EmptyDicitonaryException("Dictionary is empty.");
+            throw new EmptyDictionaryException("Dictionary is empty.");
         }
         Random random = new Random();
 
