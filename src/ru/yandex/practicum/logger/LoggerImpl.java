@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class LoggerImpl implements Logger{
+public class LoggerImpl implements Logger {
 
     private FileWriter writer;
 
