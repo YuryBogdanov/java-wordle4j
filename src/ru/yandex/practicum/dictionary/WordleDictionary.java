@@ -3,6 +3,7 @@ package ru.yandex.practicum.dictionary;
 import ru.yandex.practicum.dictionary.errors.*;
 import ru.yandex.practicum.logger.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ public class WordleDictionary {
 
     private List<String> words;
     private Logger logger;
+    private HashMap<Integer, Character> currentCorrectMask = new HashMap<>();
 
     public WordleDictionary(List<String> words, Logger logger) {
         this.words = words;
@@ -49,6 +51,7 @@ public class WordleDictionary {
 
             if (currentGuessWordChar == secretWord.charAt(i)) {
                 maskBuilder.append("+");
+                currentCorrectMask.put(i, currentGuessWordChar);
             } else {
                 String symbolToAppend = secretWord.contains(String.valueOf(currentGuessWordChar)) ? "^" : "-";
                 maskBuilder.append(symbolToAppend);
@@ -57,5 +60,31 @@ public class WordleDictionary {
         }
 
         return new WordComparisonResult(isGuessCorrect, maskBuilder.toString());
+    }
+
+    public String getHint(List<String> tries) {
+        List<String> probableWords = words
+                .stream()
+                .filter(word -> !tries.contains(word))
+                .filter(this::wordMatchesCurrentCorrectMask)
+                .toList();
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(probableWords.size());
+        return probableWords.get(randomIndex);
+    }
+
+    private boolean wordMatchesCurrentCorrectMask(String word) {
+        if (currentCorrectMask.isEmpty()) {
+            return true;
+        }
+
+        boolean wordIsMatching = true;
+        for (int i = 0; i < word.length(); i++) {
+            if (currentCorrectMask.containsKey(i)) {
+                wordIsMatching = currentCorrectMask.get(i) == word.charAt(i);
+            }
+        }
+        return wordIsMatching;
     }
 }
