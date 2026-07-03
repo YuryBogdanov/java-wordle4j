@@ -10,8 +10,6 @@ import java.util.List;
 
 public class WordleGame {
 
-    private String answer;
-
     private int maxStepsCount;
     private int currentStep;
 
@@ -28,24 +26,16 @@ public class WordleGame {
         this.userInterface = userInterface;
     }
 
-    public void beginGame() throws Exception {
-        try {
-            selectGameWord();
-            runGameCycle();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void beginGame() throws EmptyDictionaryException {
+        selectGameWord();
+        runGameCycle();
     }
 
-    private void selectGameWord() throws Exception {
+    private void selectGameWord() throws EmptyDictionaryException {
         userInterface.postMessage("Выбираем слово из " + maxStepsCount + " букв для игры...");
 
-        try {
-            selectedWord = dictionary.selectWordForGame();
-            userInterface.postMessage("Слово выбрано! Попробуйте угадать. " + selectedWord);
-        } catch (EmptyDictionaryException e) {
-            throw e;
-        }
+        selectedWord = dictionary.selectWordForGame();
+        userInterface.postMessage("Слово выбрано! Попробуйте угадать. " + selectedWord);
     }
 
     private void runGameCycle() {
