@@ -19,7 +19,7 @@ public class WordleDictionaryLoader {
 
     public WordleDictionary loadWordleDictionaryFromFile(String fileName) {
         List<String> gameWords = loadWordsFromFile(fileName);
-        return new WordleDictionary(gameWords, logger);
+        return new WordleDictionary(gameWords);
     }
 
     private List<String> loadWordsFromFile(String fileName) {

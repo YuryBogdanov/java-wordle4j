@@ -10,12 +10,10 @@ import java.util.Random;
 public class WordleDictionary {
 
     private List<String> words;
-    private Logger logger;
     private HashMap<Integer, Character> currentCorrectMask = new HashMap<>();
 
-    public WordleDictionary(List<String> words, Logger logger) {
+    public WordleDictionary(List<String> words) {
         this.words = words;
-        this.logger = logger;
     }
 
     public String selectWordForGame() throws EmptyDicitonaryException {
