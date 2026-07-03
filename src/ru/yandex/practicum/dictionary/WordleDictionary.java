@@ -29,10 +29,7 @@ public class WordleDictionary {
         return words.get(randomIndex);
     }
 
-    public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLengthException, EmptyInputWordException {
-        if (guessWord.isBlank()) {
-            throw new EmptyInputWordException("Введены пробелы. Попытка не списана, введите слово.");
-        }
+    public WordComparisonResult compareWords(String guessWord, String secretWord) throws IncorrectInputWordLengthException {
         if (guessWord.length() != secretWord.length()) {
             throw new IncorrectInputWordLengthException("Введено слово неподходящей длины");
         }
