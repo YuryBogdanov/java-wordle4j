@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class LoggerImpl implements Logger {
 
     private FileWriter writer;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public void setupLogger() throws Exception {
@@ -20,10 +21,8 @@ public class LoggerImpl implements Logger {
 
     @Override
     public void logMessage(String message) {
-        // TODO: Реализовать запись в файл
         try {
             LocalDateTime currentTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedDateTime = currentTime.format(formatter);
             writer.write("[" + formattedDateTime + "] " + message + "\n");
             writer.flush();

@@ -35,7 +35,7 @@ public class WordleGame {
         userInterface.postMessage("Выбираем слово из " + maxStepsCount + " букв для игры...");
 
         selectedWord = dictionary.selectWordForGame();
-        userInterface.postMessage("Слово выбрано! Попробуйте угадать. " + selectedWord);
+        userInterface.postMessage("Слово выбрано! Попробуйте угадать. ");
     }
 
     private void runGameCycle() {
